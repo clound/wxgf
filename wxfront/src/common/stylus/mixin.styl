@@ -1,0 +1,80 @@
+// 背景图片
+bg-image($url)
+  background-image: url($url + "@2x.png")
+  @media (-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio: 3)
+    background-image: url($url + "@3x.png")
+
+// 不换行
+no-wrap()
+  text-overflow: ellipsis
+  overflow: hidden
+  white-space: nowrap
+
+// 扩展点击区域
+extend-click()
+  position: relative
+  &:before
+    content: ''
+    position: absolute
+    top: -10px
+    left: -10px
+    right: -10px
+    bottom: -10px
+
+// 限制文本行数
+text-lines($num)
+  display: -webkit-box
+  overflow: hidden
+  white-space: normal!important
+  text-overflow: ellipsis
+  word-wrap: break-word
+  -webkit-line-clamp: $num
+  -webkit-box-orient: vertical
+  max-height: 20px
+
+border-t1px($color)
+  position : relative
+  &:after
+    display: block
+    position: absolute
+    left: 0
+    bottom: 0
+    border-top 1px solid $color
+    width: 100%
+    content: ''
+    @media (-webkit-min-device-pixel-ratio: 1.5),(min-device-aspect-ratio: 1.5)
+      -webkit-transform : scaleY(0.7)
+      transform : scaleY(0.7)
+    @media (-webkit-min-device-pixel-ratio: 2),(min-device-aspect-ratio: 2)
+        -webkit-transform : scaleY(0.5)
+        transform : scaleY(0.5)
+
+border-b1px($color)
+  position : relative
+  &:after
+    display: block
+    position: absolute
+    left: 0
+    bottom: 0
+    border-bottom: 1px solid $color
+    width: 100%
+    content: ''
+    @media (-webkit-min-device-pixel-ratio: 1.5),(min-device-aspect-ratio: 1.5)
+      -webkit-transform : scaleY(0.7)
+      transform : scaleY(0.7)
+    @media (-webkit-min-device-pixel-ratio: 2),(min-device-aspect-ratio: 2)
+        -webkit-transform : scaleY(0.5)
+        transform : scaleY(0.5)
+
+border-none()
+  &:after
+    display: none
+
+flex-fix()
+  -ms-flex: 1 1 0.000000001px
+  -webkit-box-flex: 1
+  -webkit-flex: 1
+  flex: 1
+  -webkit-flex-basis: 0.000000001px
+  flex-basis: 0.000000001px
+  width: 1%

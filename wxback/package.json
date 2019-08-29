@@ -1,0 +1,30 @@
+{
+  "name": "yywl",
+  "version": "1.0.0",
+  "description": "润扬物流",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "node",
+    "wechat"
+  ],
+  "author": "cloud",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.6.2",
+    "fast-xml-parser": "^3.12.20",
+    "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "raw-body": "^2.4.1",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4",
+    "sha1": "^1.1.1",
+    "urlencode": "^1.1.0",
+    "xml2js": "^0.4.19"
+  }
+}

@@ -1,10 +1,18 @@
 const Koa = require('koa') //web服务框架模块
 const app = new Koa()
+const session=require('koa-session')
 const bodyParser = require('koa-bodyparser')
 const path = require('path')
 const router = require('./routes')
 const config = require('./config')
 const static = require('koa-static')
+app.use(session({
+  key: 'wxkoa', /** cookie的名称，可以不管 */
+  maxAge: 7200000, /** (number) maxAge in ms (default is 1 days)，cookie的过期时间，这里表示2个小时 */
+  overwrite: true, /** (boolean) can overwrite or not (default true) */
+  httpOnly: true, /** (boolean) httpOnly or not (default true) */
+  signed: true, /** (boolean) signed or not (default true) */
+}, app));
 // 使用ctx.body解析中间件
 app.use(bodyParser())
 // 配置静态web服务的中间件
@@ -18,6 +26,14 @@ app.use(async (ctx, next) => {
   ctx.set('Access-Control-Allow-Methods', 'OPTIONS,GET,HEAD,PUT,POST,DELETE,PATCH')
   await next();
 });
+// app.use(cors({
+//   origin: [ 'http://localhost:8080'], // 允许这个域名的 跨域请求
+//   exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
+//   maxAge: 5,
+//   credentials: true,
+//   allowMethods: ['GET', 'POST', 'DELETE'],
+//   allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
+// }));
 app
   .use(router.routes())
   .use(router.allowedMethods());

@@ -5,6 +5,7 @@ const config = {
   port: 8082,
   hostName: '192.168.88.76',
   url: 'http://h2k6219650.qicp.vip', // 服务器地址
+  adminUrl: 'http://shzrn5.natappfree.cc', // java 后台服务器地址
   token: 'test', //对应测试号接口配置信息里填的token
   appId: 'wx51e00ae3683cadee', //对应测试号信息里的appID
   secret: 'f6441c8545bda8e32ca32f10cd4ed6cb', //对应测试号信息里的appsecret

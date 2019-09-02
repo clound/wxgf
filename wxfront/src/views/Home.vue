@@ -8,6 +8,10 @@
       <van-field v-model="form.sms" center clearable label="短信验证码：" placeholder="请输入短信验证码" required>
         <van-button slot="button" size="small" type="primary" @click="sendcode" :disabled="senddisabled">{{sendBtnTitle}}</van-button>
       </van-field>
+      <van-field v-model="form.authcode" center clearable label="验证码：" placeholder="请输入短信验证码" required>
+        <!-- <img :src="src" slot="right-icon"> -->
+        <span v-html="src" @click="_getCode()" slot="right-icon"></span>
+      </van-field>
     </van-cell-group>
     <div class="mt20 p20">
       <van-button type="primary" size="large" round @click="_signup" :disabled="signupdisabled">注册</van-button>
@@ -19,7 +23,7 @@
 // @ is an alias to /src
 import { Image, CellGroup, Cell, Button, Field } from 'vant'
 import { validatePhone } from '@/libs/validate'
-import { signup } from '@/api/user'
+import { signup, getcode, getPhoneCode } from '@/api/user'
 
 export default {
   name: 'home',
@@ -33,6 +37,7 @@ export default {
   data() {
     return {
       logoSrc: require('@/common/images/logo.jpg'),
+      src: '',
       senddisabled: false,
       signupdisabled: false,
       sendBtnTitle: '获取验证码',
@@ -40,16 +45,24 @@ export default {
         username: '',
         phone: '',
         sms: '',
-        code: ''
+        code: '',
+        authcode: ''
       }
     }
   },
   created() {
     let { code } = this.$route.query
     console.log(code)
-    this.code = code || ''
+    this.form.code = code || 'gh_60ea7d95e74e'
+    this._getCode()
   },
   methods: {
+    _getCode() {
+      getcode().then(res => {
+        console.log(res)
+        this.src = res.data
+      })
+    },
     validateBtn() {
       let time = 60
       let timer = setInterval(() => {
@@ -65,12 +78,24 @@ export default {
       }, 1000)
     },
     sendcode() {
-      let { phone } = this.form
+      let { authcode, phone } = this.form
       if (!phone || !validatePhone(phone)) {
         this.$toast.fail('请填写正确的手机号')
         return
       }
+      if (!authcode) {
+        this.$toast.fail('请输入验证码')
+        return
+      }
       this.validateBtn()
+      getPhoneCode({ code: authcode, phone }).then(res => {
+        let data = res.data
+        if (!data.code) {
+          this.$toast.success('短信发送成功')
+        } else {
+          this.$toast.fail(data.message)
+        }
+      })
     },
     _signup() {
       let { username, phone, sms, code } = this.form
@@ -89,7 +114,16 @@ export default {
       this.signupdisabled = true
       signup({ username, phone, sms, code }).then(res => {
         this.signupdisabled = false
-        console.log(res)
+        let data = res.data
+        if (!data.code) {
+          this.$toast.success('注册成功')
+          this.$route.push({
+            name: 'listinfo',
+            params: { id: code }
+          })
+        } else {
+          this.$toast.fail(data.message)
+        }
       })
     }
   }

@@ -2,9 +2,6 @@
   <div class="about">
     <van-nav-bar
       title="关于我们"
-      left-text="返回"
-      left-arrow
-      @click-left="onClickLeft"
     />
     <div class="container"></div>
   </div>

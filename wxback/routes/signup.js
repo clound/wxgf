@@ -25,7 +25,15 @@ router.get('/', async (ctx, next) => {
     let options = {method: 'POST', url, body: { wechatid: data.openid }, json: true}
     let res = await httpRequest(options, 'isRegister')
     if (!(res.code | 0)) {
-      
+      // let href = ctx.url.split('?')
+      ctx.redirect(`search`)
+      next()
+    } else {
+      let content = await utils.readFileAsync(filePath)
+      console.log(ctx.query, ctx.url, ctx.originalUrl)
+      ctx.type = 'text/html'
+      ctx.body = content
+      next()
     }
     console.log(res)
   }
@@ -39,6 +47,52 @@ router.get('/', async (ctx, next) => {
   //   ctx.redirect(`${ctx.url}&redirect=true`)
   //   next()
   // }
+})
+router.get('/redirect', async(ctx, next) => {
+
+})
+router.post('/', async (ctx, next) => {
+  let { code, phone, username, sms } = ctx.request.body
+  console.log(ctx.session.phonecode, 'phoecode', code, phone, username, sms)
+  if (code) {
+    if (ctx.session.phonecode.toString() !== sms) {
+      ctx.body = {
+        code: 1,
+        message: '短信验证失败'
+      }
+      return
+    }
+    let url = api.javaAdmin.registerUser
+    let options = {
+      method: 'POST',
+      url,
+      body: { 
+        phone,
+        wechatid: code,
+        name: username
+      },
+      json: true
+    }
+    let res = await httpRequest(options, 'registerWechat')
+    console.log(res, res.code)
+    if (!(res.code | 0)) {
+      ctx.body = {
+        code: 0,
+        message: '注册成功'
+      }
+    } else {
+      ctx.body = {
+        code: 1,
+        message: '注册失败'
+      }
+    }
+  } else {
+    ctx.body = {
+      code: 1,
+      message: '当前不支持注册'
+    }
+  }
+  next()
 })
 router.get('/getcap', async (ctx) => {
   const captcha = svgCaptcha.create({    //这种生成的是随机数验证码
@@ -90,47 +144,5 @@ router.post('/getphonecode', async (ctx) => {
     }
   }
 })
-router.post('/', async (ctx, next) => {
-  let { code, phone, username, sms } = ctx.request.body
-  console.log(ctx.session.phonecode, 'phoecode', code, phone, username, sms)
-  if (code) {
-    if (ctx.session.phonecode.toString() !== sms) {
-      ctx.body = {
-        code: 1,
-        message: '短信验证失败'
-      }
-      return
-    }
-    let url = api.javaAdmin.registerUser
-    let options = {
-      method: 'POST',
-      url,
-      body: { 
-        phone,
-        wechatid: code,
-        name: username
-      },
-      json: true
-    }
-    let res = await httpRequest(options, 'registerWechat')
-    console.log(res, res.code)
-    if (!(res.code | 0)) {
-      ctx.body = {
-        code: 0,
-        message: '注册成功'
-      }
-    } else {
-      ctx.body = {
-        code: 1,
-        message: '注册失败'
-      }
-    }
-  } else {
-    ctx.body = {
-      code: 1,
-      message: '当前不支持注册'
-    }
-  }
-  next()
-})
+
 module.exports = router.routes()

@@ -12,17 +12,9 @@ module.exports = {
       "url": url
     },
     {
+      "type": "view",
       "name": "关于我们",
-      "sub_button": [
-        {
-          "type": "view",
-          "name": "搜索",
-          "url":"http://www.soso.com/"
-        },
-        {
-          "type": "click",
-          "name": "赞一下",
-          "key": "V1001_GOOD"
-        }]
-    }]
+      "url": `${config.url}/about`
+    }
+  ]
 }

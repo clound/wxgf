@@ -1,34 +1,62 @@
 <template>
   <div>
-    <van-nav-bar
-      title="关于我们"
-      left-text="返回"
-      left-arrow
-      @click-left="onClickLeft"
-    />
-    <van-search
-      v-model="value"
-      placeholder="请输入搜索关键词"
-      show-action
-      shape="round"
-      @search="onSearch"
-    >
-      <div slot="action" @click="onSearch">搜索</div>
-    </van-search>
+    <div class="search-bar">
+      <van-nav-bar
+        title="物流查询"
+      />
+      <van-search
+        v-model="value"
+        placeholder="请输入搜索关键词"
+        show-action
+        shape="round"
+      >
+        <div slot="action" @click="onSearch">搜索</div>
+      </van-search>
+    </div>
+    <div class="mt120">
+      <van-panel
+        v-for="(item, index) in lists"
+        :key="index"
+        :title="'运单编号：'+item.trackNum"
+        desc=""
+        status="运输中"
+        class="mb10">
+        <div class="p20">{{item.detail}}</div>
+      </van-panel>
+    </div>
   </div>
 </template>
 <script>
-import { NavBar, Search } from 'vant'
+import { NavBar, Search, Panel } from 'vant'
+import { search } from '@/api/search'
 export default {
   name: 'about',
   components: {
     [NavBar.name]: NavBar,
+    [Panel.name]: Panel,
     [Search.name]: Search
   },
+  data () {
+    return {
+      value: '',
+      lists: []
+    }
+  },
   methods: {
-    onClickLeft() {
-      this.$router.back()
+    onSearch() {
+      console.log(this.value)
+      search({ expressNo: this.value }).then(res => {
+        let data = res.data
+        this.lists = data.data || []
+      })
     }
   }
 }
 </script>
+<style lang="stylus">
+  .search-bar
+    position fixed
+    top 0
+    width 100%
+    z-index 10
+</style>

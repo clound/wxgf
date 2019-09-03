@@ -22,11 +22,11 @@ export default new Router({
       name: 'search',
       component: () => import('./views/Search.vue')
     },
-    {
-      path: '/list',
-      name: 'list',
-      component: () => import('./views/List.vue')
-    },
+    // {
+    //   path: '/list',
+    //   name: 'list',
+    //   component: () => import('./views/List.vue')
+    // },
     {
       path: '/list/:id',
       name: 'listinfo',

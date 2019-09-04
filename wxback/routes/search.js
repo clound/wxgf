@@ -14,16 +14,16 @@ router.get('/', async (ctx, next) => {
   next()
 })
 router.post('/', async (ctx, next) => {
-  ctx.body = {
-    code: 0,
-    data: Array.from({length: 30}).fill({
-      detail: '从常州发往镇江的途中',
-      trackNum: Math.floor(Math.random() * 100000)
-    }),
-    // data: res.repData.list || [],
-    message: '成功'
-  }
-  return
+  // ctx.body = {
+  //   code: 0,
+  //   data: Array.from({length: 30}).fill({
+  //     detail: '从常州发往镇江的途中',
+  //     trackNum: Math.floor(Math.random() * 100000)
+  //   }),
+  //   // data: res.repData.list || [],
+  //   message: '成功'
+  // }
+  // return
   let { expressNo } = ctx.request.body
   console.log(ctx.session.openid, '物流号码', expressNo)
   let url = api.javaAdmin.searchOrder
@@ -31,8 +31,8 @@ router.post('/', async (ctx, next) => {
     method: 'POST',
     url,
     body: {
-      wechatid: ctx.session.openid || 'gh_60ea7d95e74e',
-      ...(expressNo ? {tracknum: expressNo || '320992929'} : {})
+      wechatid: ctx.session.openid || '',
+      ...(expressNo ? {tracknum: expressNo || ''} : {})
     },
     json: true
   }
@@ -41,11 +41,11 @@ router.post('/', async (ctx, next) => {
   if (!(res.code | 0)) {
     ctx.body = {
       code: 0,
-      data: Array.from({length: 30}).fill({
-        detail: '从常州发往镇江的途中',
-        trackNum: Math.floor(Math.random() * 100000)
-      }),
-      // data: res.repData.list || [],
+      // data: Array.from({length: 30}).fill({
+      //   detail: '从常州发往镇江的途中',
+      //   trackNum: Math.floor(Math.random() * 100000)
+      // }),
+      data: res.repData.list || [],
       message: '成功'
     }
   } else {

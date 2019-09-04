@@ -165,7 +165,7 @@ exports.reply = async function (obj) {
   } else if (message.MsgType === 'text') {
     var content = message.Content;
     reply = '';
-    if (content === 1) {
+    if (content === '1') {
       reply = '<xml>' +
         '<ToUserName><![CDATA[' + message.FromUserName + ']]></ToUserName>' +
         '<FromUserName><![CDATA[' + message.ToUserName + ']]></FromUserName>' +
@@ -173,7 +173,7 @@ exports.reply = async function (obj) {
         '<MsgType><![CDATA[' + message.MsgType + ']]></MsgType>' +
         '<Content><![CDATA[木子水吉最棒棒~]]></Content>' +
         '</xml>';
-    } else if (content === 2) {
+    } else if (content === '2') {
       reply = '<xml>' +
         '<ToUserName><![CDATA[' + message.FromUserName + ']]></ToUserName>' +
         '<FromUserName><![CDATA[' + message.ToUserName + ']]></FromUserName>' +
@@ -181,7 +181,7 @@ exports.reply = async function (obj) {
         '<MsgType><![CDATA[' + message.MsgType + ']]></MsgType>' +
         '<Content><![CDATA[木子水吉最优秀~]]></Content>' +
         '</xml>';
-    } else if (content === 3) {
+    } else if (content === '3') {
       reply = '<xml>' +
         '<ToUserName><![CDATA[' + message.FromUserName + ']]></ToUserName>' +
         '<FromUserName><![CDATA[' + message.ToUserName + ']]></FromUserName>' +
@@ -189,7 +189,7 @@ exports.reply = async function (obj) {
         '<MsgType><![CDATA[' + message.MsgType + ']]></MsgType>' +
         '<Content><![CDATA[木子水吉最漂亮~]]></Content>' +
         '</xml>';
-    } else if (content === 4) {
+    } else if (content === '4') {
       reply = '<xml>' +
         '<ToUserName><![CDATA[' + message.FromUserName + ']]></ToUserName>' +
         '<FromUserName><![CDATA[' + message.ToUserName + ']]></FromUserName>' +
@@ -197,7 +197,7 @@ exports.reply = async function (obj) {
         '<MsgType><![CDATA[' + message.MsgType + ']]></MsgType>' +
         '<Content><![CDATA[木子水吉我爱你~]]></Content>' +
         '</xml>';
-    } else if (content === 5) {   //设置消息模板
+    } else if (content === '5') {   //设置消息模板
       var formData = {
         "industry_id1": "1",
         "industry_id2": "2"
@@ -210,7 +210,7 @@ exports.reply = async function (obj) {
         '<MsgType><![CDATA[' + message.MsgType + ']]></MsgType>' +
         '<Content><![CDATA[]]></Content>' +
         '</xml>';
-    } else if (content === 7) {   //获取消息模板
+    } else if (content === '7') {   //获取消息模板
       var data = await wechat.getMessTemplate();
       console.log(data.primary_industry);
       console.log(data.secondary_industry);
@@ -221,7 +221,7 @@ exports.reply = async function (obj) {
         '<MsgType><![CDATA[' + message.MsgType + ']]></MsgType>' +
         '<Content><![CDATA[]]></Content>' +
         '</xml>';
-    } else if (content === 8) {   //获取消息模板ID
+    } else if (content === '8') {   //获取消息模板ID
       var formData = {
         "template_id_short": "TM00015"
       };
@@ -234,7 +234,7 @@ exports.reply = async function (obj) {
         '<MsgType><![CDATA[' + message.MsgType + ']]></MsgType>' +
         '<Content><![CDATA[]]></Content>' +
         '</xml>';
-    } else if (content === 9) {   //获取消息模板
+    } else if (content === '9') {   //获取消息模板
       var data = await wechat.fetchMessTempList();
       console.log(data);
       reply = '<xml>' +
@@ -244,7 +244,7 @@ exports.reply = async function (obj) {
         '<MsgType><![CDATA[' + message.MsgType + ']]></MsgType>' +
         '<Content><![CDATA[]]></Content>' +
         '</xml>';
-    } else if (content === 10) {  //获取用户列表 and 删除模板消息
+    } else if (content === '10') {  //获取用户列表 and 删除模板消息
       var userData = await wechat.getUserList(null);
       var openIDArray = userData.data.openid;
       console.log(JSON.stringify(userData));
@@ -259,13 +259,13 @@ exports.reply = async function (obj) {
         '<MsgType><![CDATA[' + message.MsgType + ']]></MsgType>' +
         '<Content><![CDATA[]]></Content>' +
         '</xml>';
-    } else if (content === 11) {  //获取用户列表
+    } else if (content === '11') {  //获取用户列表
       var userData = await wechat.getUserList(null);
       var openIDArray = userData.data.openid;
       console.log(JSON.stringify(openIDArray));
       var data = await wechat.sendMessTemp(openIDArray[0]);
       reply = '';
-    } else if (content === 12) {  //回复图片消息
+    } else if (content === '12') {  //回复图片消息
 
       // var material = yield wechat.uploadMaterial('image', path.join(__dirname, '../static/uuu.jpg'))
       // console.log(material.media_id)
@@ -281,7 +281,7 @@ exports.reply = async function (obj) {
         '<MediaId><![CDATA[' + media_id + ']]></MediaId>' +
         '</Image>' +
         '</xml>';
-    } else if (content === 13) {  //回复视频消息
+    } else if (content === '13') {  //回复视频消息
 
       // var material = yield wechat.uploadMaterial('video', path.join(__dirname, '../static/3.mp4'))
       var media_id = 'Yo0todNU8aYO-jxmaZ_5RfHbBAY5g_dY2tu2Gw5LW1DtCqC7iAgnlFy06hucSZld'
@@ -297,7 +297,7 @@ exports.reply = async function (obj) {
         '</Video>' +
         '</xml>';
       console.log(reply);
-    } else if (content === 14) {  //回复音乐消息
+    } else if (content === '14') {  //回复音乐消息
 
       // var material = yield wechat.uploadMaterial('voice', path.join(__dirname, '../static/yujian.mp3'))
       reply = '<xml>' +
@@ -313,7 +313,7 @@ exports.reply = async function (obj) {
         '</Music>'
       '</xml>';
       console.log(reply);
-    } else if (content === 15) {  //回复图文消息
+    } else if (content === '15') {  //回复图文消息
       // console.log("media_id_1", 'UKtTh7jexfgzswpbeXaI8vl7OSMoUkJ69GsqX1hUOaldiNQHFxU34jr_rzCB59QJ')
       // console.log("media_id_2", 'dmsiJyr8TRu17slpfH75LIvLi8Wy7kvCDO57R-R62HesMIkUZUNF7DSuA92f8HBK')
       // console.log("media_id_3", 'OWE7rxGe2WFqPfMjEbr-DX7hzGCn0M7LcCzjjcExp1-fSybgA83DJ9onEhrGLs_p')
@@ -341,7 +341,7 @@ exports.reply = async function (obj) {
         '</item>' +
         '</Articles>' +
         '</xml>';
-    } else if (content === 16) {  //上传永久图文素材
+    } else if (content === '16') {  //上传永久图文素材
       var imgPath1 = path.join(__dirname, '../static/1.png');
       var imgPath2 = path.join(__dirname, '../static/7.png');
       //上传永久图文素材的图片路径的获取
@@ -383,7 +383,7 @@ exports.reply = async function (obj) {
       //一个永久图文素材的media_id
       //console.log('articles', 'TH4XgB4RG5AAkADTZaafLMkr0doJ4eNH_OdjMYbGook')
       reply = ''
-    } else if (content === 17) {  //群发消息 之上传图文消息素材
+    } else if (content === '17') {  //群发消息 之上传图文消息素材
       var imgPath1 = path.join(__dirname, '../static/1.png');
       var imgPath2 = path.join(__dirname, '../static/7.png');
       var perImgId1 = await wechat.uploadMaterial('image', imgPath1);
@@ -417,7 +417,7 @@ exports.reply = async function (obj) {
       // media_id: 'y0JCw_7TAAtXINHSp6l6ZARbLBPHDtBUVFiznen9rl1W1c_mwSDikyXd8x1oKbCD',
       // created_at: 1511918970 })
 
-    } else if (content === 18) {  //群发消息 根据用户标签进行群发
+    } else if (content === '18') {  //群发消息 根据用户标签进行群发
       //群发图文消息
       var postData1 = {
         "filter": {
@@ -494,7 +494,7 @@ exports.reply = async function (obj) {
       var message = await wechat.sendMessByTag(postData1);  //通过用户标签群发
 
 
-    } else if (content === 19) {  //群发消息 根据openID列表进行群发
+    } else if (content === '19') {  //群发消息 根据openID列表进行群发
       //群发图文消息
       var postData1 = {
         "touser": [
@@ -565,7 +565,7 @@ exports.reply = async function (obj) {
       var message = await wechat.sendMessByOpenID(postData2);  //通过用户标签群发
       //返回数据:{ "errcode":0,"errmsg":"send job submission success","msg_id":34182, "msg_data_id": 206227730}
       console.log(message)
-    } else if (content === 20) {  //群发消息 删除群发消息
+    } else if (content === '20') {  //群发消息 删除群发消息
       var deleteData = {
         "msg_id": 3147483649,
         //"article_idx":2
@@ -573,7 +573,7 @@ exports.reply = async function (obj) {
       var message = await wechat.deleteMessByID(deleteData);  //通过用户标签群发
       //返回数据:{ "errcode":0,"errmsg":"send job submission success","msg_id":34182, "msg_data_id": 206227730}
       console.log(message);
-    } else if (content === 21) {  //群发消息 根据预览群发消息的接口
+    } else if (content === '21') {  //群发消息 根据预览群发消息的接口
       //群发图文消息
       var postData1 = {
         "touser": "ocOnc0_IhtGYRHSiNUfCSk4ZPSME",
@@ -600,11 +600,11 @@ exports.reply = async function (obj) {
       }
       var message = await wechat.priviewMess(postData2);
       console.log(message);
-    } else if (content === 22) {  //创建自定义菜单
+    } else if (content === '22') {  //创建自定义菜单
       var message = await wechat.createDefineMenu(menu);
       //返回数据:{ errcode: 0, errmsg: 'preview success' }
       console.log(message);
-    } else if (content === 23) {  //用户管理 生成带参数的二维码
+    } else if (content === '23') {  //用户管理 生成带参数的二维码
       var dataTempQr = { "expire_seconds": 604800, "action_name": "QR_SCENE", "action_info": { "scene": { "scene_id": 123 } } }
       var strTempQr = { "expire_seconds": 604800, "action_name": "QR_SCENE", "action_info": { "scene": { "scene_str": "test" } } }
       var dataPermQr = { "action_name": "QR_LIMIT_SCENE", "action_info": { "scene": { "scene_id": 123 } } }
@@ -613,7 +613,7 @@ exports.reply = async function (obj) {
       var qrCodeTicket = await wechat.createQrCodeTicket(dataTempQr);
       var qrCode = await wechat.createQrCode(encodeURI(qrCodeTicket));
       console.log(qrCode);
-    } else if (content === 24) {  //用户管理 长连接转成短连接
+    } else if (content === '24') {  //用户管理 长连接转成短连接
       var urlData = {
         action: "long2short",
         long_url: "http://wap.koudaitong.com/v2/showcase/goods?alias=128wi9shh&spm=h56083&redirect_count=1"
@@ -622,7 +622,7 @@ exports.reply = async function (obj) {
       var chengeResult = await wechat.changeToShort(urlData);
 
       console.log(chengeResult);
-    } else if (content === 25) {  //语义化接口
+    } else if (content === '25') {  //语义化接口
       var yuyiData = {
         "query": "寻龙诀",
         "city": "杭州",

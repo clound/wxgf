@@ -52,14 +52,14 @@ export default {
   },
   created() {
     let { code } = this.$route.query
-    console.log(code)
-    this.form.code = code || 'gh_60ea7d95e74e'
+    // console.log(code)
+    this.form.code = code || ''
     this._getCode()
   },
   methods: {
     _getCode() {
       getcode().then(res => {
-        console.log(res)
+        // console.log(res)
         this.src = res.data
       })
     },
@@ -117,9 +117,9 @@ export default {
         let data = res.data
         if (!data.code) {
           this.$toast.success('注册成功')
-          this.$route.push({
-            name: 'listinfo',
-            params: { id: code }
+          this.$router.push({
+            name: 'search',
+            query: { code: code }
           })
         } else {
           this.$toast.fail(data.message)

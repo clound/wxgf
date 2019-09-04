@@ -110,6 +110,8 @@
   margin-top: 80px
 .mt90
   margin-top: 90px
+.mt120
+  margin-top: 120px
 .ml100
   margin-left: 100px
 
@@ -171,3 +173,44 @@
     &::after
       -webkit-transform: scaleY(0.5)
       transform: scaleY(0.5)
+
+.error-alert
+  position: fixed
+  top: 50%
+  left: 50%
+  min-width: 90px
+  transform: translate(-50%,-50%)
+  z-index: 2999
+  padding: 15px 20px
+  text-align: center
+  background: rgba(0, 0, 0, .7)
+  border-radius: 10px
+  font-size: 0
+  color: #fff
+  &.alert-show {
+    animation: show 2.5s;
+  }
+  .errorAlertIcon
+    display: block
+    font-size: 34px
+    margin-bottom: 12px
+  .errorAlertCon
+    font-size: 14px
+  @keyframes show {
+    0% {
+      opacity: 0
+    }
+    15% {
+      opacity: 1
+    }
+    70% {
+      opacity: 1
+    }
+    88% {
+      display: none
+    }
+    100% {
+      opacity: 0
+      display: none
+    }
+  }

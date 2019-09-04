@@ -9,44 +9,16 @@ const wechat = new Wechat(config)
 const utils = require('../libs/utils')
 const httpRequest = require('../libs/request')
 const filePath = path.join(__dirname, '../www/index.html')
-function stringify(str) {
-  return JSON.stringify(str)
-}
+
 
 router.get('/', async (ctx, next) => {
   let { code } = ctx.query
-  if (!code) return
-  let res = await wechat.getOpenId(code)
-  let data = JSON.parse(res)
-  console.log(res, data)
-  if (data.openid) {
-    ctx.session.openid = data.openid
-    let url = api.javaAdmin.findUser
-    let options = {method: 'POST', url, body: { wechatid: data.openid }, json: true}
-    let res = await httpRequest(options, 'isRegister')
-    if (!(res.code | 0)) {
-      // let href = ctx.url.split('?')
-      ctx.redirect(`search`)
-      next()
-    } else {
-      let content = await utils.readFileAsync(filePath)
-      console.log(ctx.query, ctx.url, ctx.originalUrl)
-      ctx.type = 'text/html'
-      ctx.body = content
-      next()
-    }
-    console.log(res)
-  }
-  // if (redirect) {
-  //   let content = await utils.readFileAsync(filePath)
-  //   console.log(ctx.query, ctx.url, ctx.originalUrl)
-  //   ctx.type = 'text/html'
-  //   ctx.body = content
-  //   next()
-  // } else {
-  //   ctx.redirect(`${ctx.url}&redirect=true`)
-  //   next()
-  // }
+  console.log('code---', code);
+  let content = await utils.readFileAsync(filePath)
+  console.log(ctx.query, ctx.url, ctx.originalUrl)
+  ctx.type = 'text/html'
+  ctx.body = content
+  next()
 })
 router.get('/redirect', async(ctx, next) => {
 

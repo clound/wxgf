@@ -1,6 +1,5 @@
 const Router = require('koa-router');
 const router = new Router()
-const rp = require('request-promise')
 const config = require('../config')
 const Wechat = require('../wechat/wechat')
 const wechat = new Wechat(config)
@@ -33,13 +32,32 @@ const requestData = {
 /**
  * 网页授权回调接口，可以获取code
  */
+// {
+//   "errcode":0,
+//    "errmsg":"ok",
+//    "msgid":200228332
+// }
 
-router.get('/', async function(ctx, next) {
-  const code = ctx.query.code // 微信回调这个接口后会把code参数带过来
-  let res = await wechat.getOpenId(code)
-  let lastres = await wechat.sendMessTemp(res.openid || '', config.template_id, requestData)
-  console.log(lastres)
-  console.log('模板消息发送成功');
+router.post('/', async function(ctx, next) {
+  // const code = ctx.query.code // 微信回调这个接口后会把code参数带过来
+  // let res = await wechat.getOpenId(code)
+  const postData = ctx.request.body
+  console.log(postData)
+  let { wechatid: openid, msgJson } = postData 
+  let lastres = await wechat.sendMessTemp(openid || '', config.template_id, msgJson)
+  if (!(lastres.errcode | 0)) {
+    ctx.body = {
+      code: 0,
+      msg: '推送消息成功',
+      msgid: lastres.msgid
+    }
+  } else {
+    ctx.body = {
+      code: lastres.errcode,
+      msg: '推送消息失败',
+      msgid: lastres.errmsg
+    }
+  }
   next()
 })
 

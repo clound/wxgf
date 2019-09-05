@@ -29,7 +29,7 @@ exports.reply = async function (obj) {
         '<FromUserName><![CDATA[' + message.ToUserName + ']]></FromUserName>' +
         '<CreateTime>' + now + '</CreateTime>' +
         '<MsgType><![CDATA[text]]></MsgType>' +
-        '<Content><![CDATA[欢迎关注润阳物流\n后台回复 [登录]: 进行微信登录绑定~\n后台回复 [物流单号]: 查询物流信息~\n也可以点击 <a href="http://www.baidu.com">  网页查物流</a>\n]]></Content>' +
+        '<Content><![CDATA[欢迎关注润阳物流\n点击物流查询: 查看物流动态详情\n]]></Content>' +
         '</xml>';
     }
     else if (message.Event === 'unsubscribe') { //取消订阅
@@ -171,7 +171,7 @@ exports.reply = async function (obj) {
         '<FromUserName><![CDATA[' + message.ToUserName + ']]></FromUserName>' +
         '<CreateTime>' + now + '</CreateTime>' +
         '<MsgType><![CDATA[' + message.MsgType + ']]></MsgType>' +
-        '<Content><![CDATA[木子水吉最棒棒~]]></Content>' +
+        '<Content><![CDATA[润洋物流最棒棒~]]></Content>' +
         '</xml>';
     } else if (content === '2') {
       reply = '<xml>' +
@@ -179,7 +179,7 @@ exports.reply = async function (obj) {
         '<FromUserName><![CDATA[' + message.ToUserName + ']]></FromUserName>' +
         '<CreateTime>' + now + '</CreateTime>' +
         '<MsgType><![CDATA[' + message.MsgType + ']]></MsgType>' +
-        '<Content><![CDATA[木子水吉最优秀~]]></Content>' +
+        '<Content><![CDATA[润洋物流1~]]></Content>' +
         '</xml>';
     } else if (content === '3') {
       reply = '<xml>' +
@@ -187,7 +187,7 @@ exports.reply = async function (obj) {
         '<FromUserName><![CDATA[' + message.ToUserName + ']]></FromUserName>' +
         '<CreateTime>' + now + '</CreateTime>' +
         '<MsgType><![CDATA[' + message.MsgType + ']]></MsgType>' +
-        '<Content><![CDATA[木子水吉最漂亮~]]></Content>' +
+        '<Content><![CDATA[润洋物流2~]]></Content>' +
         '</xml>';
     } else if (content === '4') {
       reply = '<xml>' +
@@ -195,7 +195,7 @@ exports.reply = async function (obj) {
         '<FromUserName><![CDATA[' + message.ToUserName + ']]></FromUserName>' +
         '<CreateTime>' + now + '</CreateTime>' +
         '<MsgType><![CDATA[' + message.MsgType + ']]></MsgType>' +
-        '<Content><![CDATA[木子水吉我爱你~]]></Content>' +
+        '<Content><![CDATA[润洋物流2~]]></Content>' +
         '</xml>';
     } else if (content === '5') {   //设置消息模板
       var formData = {
@@ -361,7 +361,7 @@ exports.reply = async function (obj) {
         "articles": [{
           "title": '夕阳西下,映照晚霞',
           "thumb_media_id": 'TH4XgB4RG5AAkADTZaafLP1z76CBaqbyh5pKgdqXgnA',
-          "author": '木子水吉',
+          "author": '润洋物流',
           "digest": '这个图片描绘的是一副夕阳西下的场景,这场景美轮美奂,给人一种如临仙境的美感.',
           "show_cover_pic": 1,
           "content": '这个图片描绘的是一副夕阳西下的场景,这场景美轮美奂,给人一种如临仙境的美感.让人应接不暇,忍不住驻足观赏,流连忘返.',
@@ -370,7 +370,7 @@ exports.reply = async function (obj) {
         {
           "title": '花娇艳如你',
           "thumb_media_id": 'TH4XgB4RG5AAkADTZaafLKXohf9w5ZMewmU9CQmcDI8',
-          "author": '木子水吉',
+          "author": '润洋物流',
           "digest": '这是一朵其貌不扬却沁人心脾的花',
           "show_cover_pic": 1,
           "content": '这朵花给我的感觉很棒,没有牡丹的雍容华贵,玫瑰的娇艳美丽,它有着它独有的魅力与气质,征服了我',

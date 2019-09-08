@@ -4,7 +4,7 @@ const config = require('../config')
 const Wechat = require('../wechat/wechat')
 const wechat = new Wechat(config)
 const requestData = {
-  fisrt: {
+  first: {
     value: '尊敬的客户',
     color: '#173177'
   },
@@ -41,10 +41,12 @@ const requestData = {
 router.post('/', async function(ctx, next) {
   // const code = ctx.query.code // 微信回调这个接口后会把code参数带过来
   // let res = await wechat.getOpenId(code)
+  // console.log(ctx.query, ctx.request)
   const postData = ctx.request.body
-  console.log(postData)
-  let { wechatid: openid, msgJson } = postData 
-  let lastres = await wechat.sendMessTemp(openid || '', config.template_id, msgJson)
+  let { wechatid: openid, msgJson } = postData
+  let lastres = await wechat.sendMessTemp(openid || '', config.template_id, JSON.parse(msgJson))
+  console.log(postData, JSON.parse(msgJson))
+  // console.log('sendmsg---', ctx.session, postData, openid, msgJson)
   if (!(lastres.errcode | 0)) {
     ctx.body = {
       code: 0,

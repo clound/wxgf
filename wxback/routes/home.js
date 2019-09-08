@@ -25,17 +25,19 @@ router.get('/', (ctx, next) => {
     ctx.body = '验证失败'
   }
 })
-router.post('/', async (ctx) => {
+router.post('/', async (ctx, next) => {
   //通过raw-body模块接收接口传过来的xml数据
   var data = await rawBody(ctx.req, { length: ctx.length, limit: '1mb', encoding: ctx.charset });
-  console.log(data.toString())
   // var jsonObj = tpl.xmlToJson(data);
   let jsonObj = await utils.parseXMLAsync(data)
   let message = utils.formatMessage(jsonObj.xml)
+  console.log('home post', ctx.url)
+  
   let reply = await wexinReply.reply(message);
   ctx.status = 200;
   ctx.type = 'application/xml';
   ctx.body = reply;
+  next()
 })
 
 module.exports = router.routes()

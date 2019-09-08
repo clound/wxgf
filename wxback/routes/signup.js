@@ -13,19 +13,15 @@ const filePath = path.join(__dirname, '../www/index.html')
 
 router.get('/', async (ctx, next) => {
   let { code } = ctx.query
-  console.log('code---', code);
+  console.log('获取微信code---', code);
   let content = await utils.readFileAsync(filePath)
-  console.log(ctx.query, ctx.url, ctx.originalUrl)
   ctx.type = 'text/html'
   ctx.body = content
   next()
 })
-router.get('/redirect', async(ctx, next) => {
-
-})
 router.post('/', async (ctx, next) => {
   let { code, phone, username, sms } = ctx.request.body
-  console.log(ctx.session.phonecode, 'phoecode', code, phone, username, sms)
+  // console.log(ctx.session.phonecode, 'phoecode', code, phone, username, sms)
   if (code) {
     if (ctx.session.phonecode.toString() !== sms) {
       ctx.body = {
@@ -46,7 +42,7 @@ router.post('/', async (ctx, next) => {
       json: true
     }
     let res = await httpRequest(options, 'registerWechat')
-    console.log(res, res.code)
+    // console.log(res, res.code)
     if (!(res.code | 0)) {
       ctx.body = {
         code: 0,
@@ -82,14 +78,14 @@ router.get('/getcap', async (ctx) => {
 router.post('/getphonecode', async (ctx) => {
   let postData = ctx.request.body
   let { code, phone } = postData
-  console.log(code, phone, ctx.session.randomCap)
+  // console.log(code, phone, ctx.session.randomCap)
   if (code.toLowerCase() === ctx.session.randomCap) {
     let reg = /^1[1-9][0-9]{9}$/
     if (reg.test(phone)) {
       let url = api.javaAdmin.sendCode
       let options = {method: 'POST', url, body: { phone }, json: true}
       let res = await httpRequest(options, 'getPhoneCode')
-      console.log(url, options, res, res.code)
+      // console.log(url, options, res, res.code)
       if (!(res.code | 0)) {
         ctx.session.randomCap = ''
         ctx.session.phonecode = res.repData.vCode

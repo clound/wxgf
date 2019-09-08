@@ -1,11 +1,25 @@
 const Koa = require('koa') //web服务框架模块
 const app = new Koa()
 const session=require('koa-session')
-const bodyParser = require('koa-bodyparser')
+const static = require('koa-static')
 const path = require('path')
+const bodyParser = require('koa-bodyparser')
 const router = require('./routes')
 const config = require('./config')
-const static = require('koa-static')
+
+const logsUtil = require('./libs/logs.js');
+app.use(async (ctx, next) => {
+    const start = new Date();                             // 响应开始时间
+    let intervals;                                            // 响应间隔时间
+    try {
+        await next();
+        intervals = new Date() - start;
+        logsUtil.logResponse(ctx, intervals);     //记录响应日志
+    } catch (error) {
+        intervals = new Date() - start;
+        logsUtil.logError(ctx, error, intervals);//记录异常日志
+    }
+})
 app.keys = ['koawxgzh']
 app.use(session({
   key: 'koawx', /** cookie的名称，可以不管 */

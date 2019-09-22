@@ -10,7 +10,8 @@ const config = {
   appId: 'wx51e00ae3683cadee', //对应测试号信息里的appID
   secret: 'f6441c8545bda8e32ca32f10cd4ed6cb', //对应测试号信息里的appsecret
   grant_type: 'client_credential', //默认
-  template_id: 'aa77X1-lsWnJHh9sSpOVV5zKcLz0FL_DYFPT_YUCo0A', // 模板ID
+  // template_id: 'aa77X1-lsWnJHh9sSpOVV5zKcLz0FL_DYFPT_YUCo0A', // 模板ID
+  template_id: 'OHnShR5CIWaG5jCuOVOuyl5H_hjEjYXi4gLvnoSLTIA', // 模板ID
   getAccessToken: function() {
     return utils.readFileAsync(wechat_file)
   },

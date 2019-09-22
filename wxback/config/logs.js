@@ -17,9 +17,9 @@ const responseLogPath = baseLogPath + responsePath + "/" + responseFileName;
 
 /*操作数据库进行增删改等敏感操作记录日志*/
 //操作日志目录、文件名、输出完整路径
-const handlePath = "/handle";
-const handleFileName = "handle";
-const handleLogPath = baseLogPath + handlePath + "/" + handleFileName;
+// const handlePath = "/handle";
+// const handleFileName = "handle";
+// const handleLogPath = baseLogPath + handlePath + "/" + handleFileName;
 
 
 module.exports = {
@@ -33,8 +33,10 @@ module.exports = {
                 "pattern": "-yyyy-MM-dd-hh.log",
                 "alwaysIncludePattern": true,
                 "encoding": "utf-8",
-                // "maxLogSize": 10,
-                // "backups": 3,
+                "maxLogSize": 20971520, //文件最大存储空间（byte）
+                "backups": 4,
+                "compress": true,
+                "daysToKeep": 10,
                 "path": errorPath
             },
             "resLogger": {
@@ -43,27 +45,18 @@ module.exports = {
                 "pattern": "-yyyy-MM-dd-hh.log",
                 "alwaysIncludePattern": true,
                 "encoding": "utf-8",
-                // "maxLogSize": 10,
-                // "backups": 3,
+                "maxLogSize": 20971520, //文件最大存储空间（byte）
+                "backups": 4,
+                "compress": true,
+                "daysToKeep": 10,
                 "path": responsePath
-            },
-            "handleLogger": {
-                "type": "dateFile",
-                "filename": handleLogPath,
-                "pattern": "-yyyy-MM-dd-hh.log",
-                "alwaysIncludePattern": true,
-                "encoding": "utf-8",
-                // "maxLogSize": 10,
-                // "backups": 3,
-                "path": responsePath
-            },
+            }
         },
     //供外部调用的名称和对应设置定义
     categories: {
         "default": {"appenders": ["rule-console"], "level": "all"},
         "resLogger": {"appenders": ["resLogger"], "level": "info"},
         "errorLogger": {"appenders": ["errorLogger"], "level": "error"},
-        "handleLogger": {"appenders": ["handleLogger"], "level": "all"},
         "http": {"appenders": ["resLogger"], "level": "info"}
     },
     "baseLogPath": baseLogPath

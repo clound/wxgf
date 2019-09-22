@@ -5,7 +5,7 @@ log4js.configure(logsConfig);
 //调用预先定义的日志名称
 const resLogger = log4js.getLogger("resLogger");
 const errorLogger = log4js.getLogger("errorLogger");
-const handleLogger = log4js.getLogger("handleLogger");
+// const handleLogger = log4js.getLogger("handleLogger");
 const consoleLogger = log4js.getLogger();
 
 // 格式化日志文本 加上日志头尾和换行方便查看 ==>  普通日志、请求日志、响应日志、操作日志、错误日志

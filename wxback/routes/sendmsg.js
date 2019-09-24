@@ -32,8 +32,9 @@ router.post('/', async function(ctx, next) {
   // console.log(ctx.query, ctx.request)
   const postData = ctx.request.body
   let { wechatid: openid, msgJson } = postData
+  let url = `detail`
   // let lastres = await wechat.sendMessTemp(openid || '', config.template_id, JSON.parse(msgJson))
-  let lastres = await wechat.sendMessTemp(openid || '', config.template_id, requestData)
+  let lastres = await wechat.sendMessTemp(openid || '', config.template_id, url, requestData)
   // console.log(postData, JSON.parse(msgJson))
   // console.log('sendmsg---', ctx.session, postData, openid, msgJson)
   if (!(lastres.errcode | 0)) {

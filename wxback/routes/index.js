@@ -7,6 +7,7 @@ router.use('/authentication', require('./authentication'));
 router.use('/sendmsg', require('./sendmsg'));
 router.use('/signup', require('./signup'));
 router.use('/search', require('./search'));
+router.use('/detail', require('./detail'));
 router.use('/about', require('./about'));
 
 module.exports = router

@@ -123,9 +123,9 @@ Wechat.prototype.delMessTemp = function (postData) {
   return httpRequest(options, 'delMessTemp')
 }
 // 消息模版  发送模版信息
-Wechat.prototype.sendMessTemp = function (userID, templateId, detail_url, postData) {
+Wechat.prototype.sendMessTemp = function (userID, templateId, postData, detail_url) {
   let url = `${api.messTemp.sendTempMess}access_token=${this.access_token}`
-  let form =  { "touser": userID, "template_id": templateId, url: detail_url, "data": postData }
+  let form =  { "touser": userID, "template_id": templateId, "data": postData, ...(detail_url ? { url: detail_url } : {}) }
   let options = {method: 'POST', url, body: form, json: true}
   return httpRequest(options, 'sendMessTemp')
 }

@@ -64,6 +64,9 @@ export default {
         if (!data.code) {
           this.lists = data.data || []
         }
+      }).catch(e => {
+        this.show = false
+        this.$toast.fail('查询数据失败')
       })
     },
     onSearch() {

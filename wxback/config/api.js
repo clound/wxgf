@@ -88,7 +88,8 @@ const allAPi = {
     findUser: javaPrefix + `/out/wc_vregister`, // 判断用户是否已经注册
     sendCode: javaPrefix + '/out/wc_sms', // 发送短信验证码
     registerUser: javaPrefix + '/out/wc_register', // 微信用户注册
-    searchOrder: javaPrefix + '/out/wc_query' // 查询运单号
+    searchOrder: javaPrefix + '/out/wc_query', // 查询运单号,
+    searchExpressDetail: javaPrefix + '/out/wc_batch_query' // 查询运单集合详情,
   }
 }
 module.exports = allAPi

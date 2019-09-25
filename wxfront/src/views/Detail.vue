@@ -17,13 +17,15 @@
           <div class="p20">{{item.detail}}</div>
         </van-panel>
       </div>
+      <kong v-else title="空空如也~~"></kong>
     </div>
-    <div style="text-align: center; padding: 10px 0;">
+    <div style="text-align: center; padding: 10px 0;" v-show="show">
       <van-loading size="24px">加载中...</van-loading>
     </div>
   </div>
 </template>
 <script>
+import kong from '@/components/kong/kong'
 import { NavBar, Panel, Loading } from 'vant'
 import { getdetailList } from '@/api/detail'
 
@@ -32,15 +34,14 @@ export default {
   components: {
     [NavBar.name]: NavBar,
     [Panel.name]: Panel,
-    [Loading.name]: Loading
+    [Loading.name]: Loading,
+    kong: kong
   },
   data() {
     return {
+      show: false,
       expressNo: '',
-      lists: Array.from({ length: 30 }).fill({ detail: '从常州发往镇江的途中',
-        status: '运输中',
-        trackNum: Math.floor(Math.random() * 100000)
-      })
+      lists: []
     }
   },
   created () {
@@ -49,13 +50,18 @@ export default {
   },
   methods: {
     _getLists() {
+      let { expressno } = this.$route.query
+      if (!expressno) return
       this.show = true
-      getdetailList({}).then(res => {
+      getdetailList({ expressno }).then(res => {
         this.show = false
         let data = res.data
         if (!data.code) {
           this.lists = data.data || []
         }
+      }).catch(e => {
+        this.show = false
+        this.$toast.fail('查询数据失败')
       })
     },
     onClickLeft() {

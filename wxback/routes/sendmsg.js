@@ -56,7 +56,7 @@ router.post('/collection', async function(ctx, next) {
   let totalTemplate = template.totalTemplate
   let qJson = msgJson
   totalTemplate['keyword1']['value'] = qJson.expressTotal
-  let url = `detail?expressno=${qJson.expressCollection}`
+  let url = `${config.url}/detail?expressno=${qJson.expressCollection}`
   // let lastres = await wechat.sendMessTemp(openid || '', config.total_templateId, JSON.parse(msgJson))
   let lastres = await wechat.sendMessTemp(openid || '', config.total_templateId, totalTemplate, url)
   // console.log(postData, JSON.parse(msgJson))

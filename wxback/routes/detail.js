@@ -27,6 +27,7 @@ router.post('/', async (ctx, next) => {
     },
     json: true
   }
+  console.log(url);
   let res = await httpRequest(options, 'searchExpressDetail')
   console.log(res)
   if (!(res.code | 0)) {

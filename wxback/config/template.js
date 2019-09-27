@@ -26,7 +26,7 @@ const detailTemplate = {
 }
 const totalTemplate = {
   first: {
-    value: '尊敬的客户,润阳物流提醒您,您有新的物流信息啦！\n',
+    value: '尊敬的客户,润阳物流提醒您,您有新的物流信息啦！',
     color: '#dd8d11'
   },
   keyword1: {

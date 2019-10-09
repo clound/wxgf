@@ -15,14 +15,14 @@ router.get('/', async (ctx, next) => {
   next()
 })
 router.post('/', async (ctx, next) => {
-  let { expressno } = ctx.request.body
-  console.log(ctx.session.openid, '---查询物流运单详情----', expressno)
+  let { wechatid, expressno } = ctx.request.body
+  console.log(ctx.session.openid, wechatid, '---查询物流运单详情----', expressno)
   let url = api.javaAdmin.searchExpressDetail
   let options = {
     method: 'POST',
     url,
     body: {
-      wechatid: ctx.session.openid || '',
+      wechatid: wechatid || '',
       tracknumList: expressno || ''
     },
     json: true

@@ -24,11 +24,11 @@ router.post('/detail', async function(ctx, next) {
   detailTempalte['keyword2']['value'] = qJson.expressNo
   detailTempalte['keyword3']['value'] = qJson.expressStatus
   detailTempalte['keyword4']['value'] = qJson.expressInfo
-  console.log(detailTempalte)
+  // console.log(detailTempalte)
   // let lastres = await wechat.sendMessTemp(openid || '', config.detail_templateId, JSON.parse(msgJson))
   let lastres = await wechat.sendMessTemp(openid || '', config.detail_templateId, detailTempalte)
   // console.log(postData, JSON.parse(msgJson))
-  // console.log('sendmsg---', ctx.session, postData, openid, msgJson)
+  console.log('sendmsg---', ctx.session, postData, openid, msgJson)
   if (!(lastres.errcode | 0)) {
     ctx.body = {
       code: 0,
@@ -55,9 +55,10 @@ router.post('/collection', async function(ctx, next) {
   let { wechatid: openid, msgJson } = postData
   let totalTemplate = template.totalTemplate
   let qJson = JSON.parse(msgJson)
+  ctx.session.openid = openid
   // console.log(postData, JSON.parse(msgJson))
   totalTemplate['keyword1']['value'] = qJson.expressTotal
-  let url = `${config.url}/detail?expressno=${qJson.expressCollection}`
+  let url = `${config.url}/detail?wechatid=${openid}&expressno=${qJson.expressCollection}`
   // let lastres = await wechat.sendMessTemp(openid || '', config.total_templateId, JSON.parse(msgJson))
   let lastres = await wechat.sendMessTemp(openid || '', config.total_templateId, totalTemplate, url)
   // console.log('sendmsg---', ctx.session, postData, openid, msgJson)

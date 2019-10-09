@@ -21,12 +21,12 @@ router.get('/', async (ctx, next) => {
 })
 router.post('/', async (ctx, next) => {
   let { code, phone, username, sms } = ctx.request.body
-  // console.log(ctx.session.phonecode, 'phoecode', code, phone, username, sms)
+  console.log('注册用户----', ctx.session.phonecode, 'phoecode', code, phone, username, sms)
   if (code) {
     if (ctx.session.phonecode.toString() !== sms) {
       ctx.body = {
         code: 1,
-        message: '短信验证失败'
+        message: '短信验证码错误'
       }
       return
     }
@@ -107,7 +107,7 @@ router.post('/getphonecode', async (ctx) => {
     }
   } else {
     ctx.body = {
-      code: 1,
+      code: 2,
       message: '验证码不正确'
     }
   }

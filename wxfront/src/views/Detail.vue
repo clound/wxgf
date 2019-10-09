@@ -50,10 +50,10 @@ export default {
   },
   methods: {
     _getLists() {
-      let { expressno } = this.$route.query
+      let { wechatid, expressno } = this.$route.query
       if (!expressno) return
       this.show = true
-      getdetailList({ expressno }).then(res => {
+      getdetailList({ wechatid, expressno }).then(res => {
         this.show = false
         let data = res.data
         if (!data.code) {

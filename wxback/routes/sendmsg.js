@@ -20,10 +20,12 @@ router.post('/detail', async function(ctx, next) {
   let { wechatid: openid, msgJson } = postData
   let detailTempalte = template.detailTemplate
   let qJson = JSON.parse(msgJson)
+  // let qJson = msgJson
+  // console.log(msgJson)
   detailTempalte['keyword1']['value'] = qJson.userName
   detailTempalte['keyword2']['value'] = qJson.expressNo
   detailTempalte['keyword3']['value'] = qJson.expressStatus
-  detailTempalte['keyword4']['value'] = qJson.expressInfo
+  detailTempalte['remark']['value'] = `\n${qJson.expressInfo}`
   // console.log(detailTempalte)
   // let lastres = await wechat.sendMessTemp(openid || '', config.detail_templateId, JSON.parse(msgJson))
   let lastres = await wechat.sendMessTemp(openid || '', config.detail_templateId, detailTempalte)
@@ -46,6 +48,7 @@ router.post('/detail', async function(ctx, next) {
 })
 /**
  * 运单总量 请求数据
+ * @param { String } userName,
  * @param { Number} expressTotal,
  * @param { String } expressCollection
  * @return "errcode":0, "errmsg":"ok", "msgid":200228332
@@ -55,9 +58,11 @@ router.post('/collection', async function(ctx, next) {
   let { wechatid: openid, msgJson } = postData
   let totalTemplate = template.totalTemplate
   let qJson = JSON.parse(msgJson)
+  // let qJson = msgJson
   ctx.session.openid = openid
   // console.log(postData, JSON.parse(msgJson))
-  totalTemplate['keyword1']['value'] = qJson.expressTotal
+  totalTemplate['keyword1']['value'] = qJson.userName
+  totalTemplate['keyword2']['value'] = qJson.expressTotal
   let url = `${config.url}/detail?wechatid=${openid}&expressno=${qJson.expressCollection}`
   // let lastres = await wechat.sendMessTemp(openid || '', config.total_templateId, JSON.parse(msgJson))
   let lastres = await wechat.sendMessTemp(openid || '', config.total_templateId, totalTemplate, url)

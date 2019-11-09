@@ -1,6 +1,6 @@
 const detailTemplate = {
   first: {
-    value: '尊敬的客户\n',
+    value: '尊敬的客户',
     color: '#173177'
   },
   keyword1: {
@@ -20,13 +20,13 @@ const detailTemplate = {
   //   color: '#1d1d1d'
   // },
   remark: {
-    value: '\n物流信息跟踪中...',
+    value: '物流信息跟踪中...',
     color: '#888'
   }
 }
 const totalTemplate = {
   first: {
-    value: '润阳物流提醒您,您的运单状态更新啦！\n',
+    value: '润阳物流提醒您,您的运单状态更新啦！',
     color: '#dd8d11'
   },
   keyword1: {
@@ -38,7 +38,7 @@ const totalTemplate = {
     color: '#1d1d1d'
   },
   remark: {
-    value: '\n点击查看运单详情(运单会以列表形式展示)',
+    value: '点击查看运单详情(运单会以列表形式展示)',
     color: '#888'
   }
 }

@@ -26,7 +26,7 @@ router.post('/detail', async function(ctx, next) {
   detailTempalte['keyword1']['value'] = qJson.userName
   detailTempalte['keyword2']['value'] = qJson.expressNo
   detailTempalte['keyword3']['value'] = qJson.expressStatus
-  detailTempalte['remark']['value'] = `\n${qJson.expressInfo}`
+  detailTempalte['remark']['value'] = `${qJson.expressInfo}`
   // console.log(detailTempalte)
   // let lastres = await wechat.sendMessTemp(openid || '', config.detail_templateId, JSON.parse(msgJson))
   let lastres = await wechat.sendMessTemp(openid || '', config.detail_templateId, detailTempalte)
@@ -62,10 +62,10 @@ router.post('/collection', async function(ctx, next) {
   // let qJson = msgJson
   ctx.session.openid = openid
   // console.log(postData, JSON.parse(msgJson))
-  let tip = `润阳物流提醒您,您的运单状态更新啦！\n`
+  let tip = `润阳物流提醒您,您的运单状态更新啦！`
   totalTemplate['first']['value'] = `尊敬的客户${qJson.userName},${tip}`
   totalTemplate['keyword1']['value'] = utils.parseTime(new Date(), '{y}-{m}-{d} {h}:{i}:{s}')
-  totalTemplate['keyword2']['value'] = `您有${qJson.expressTotal}运单状态发生变化啦!`
+  totalTemplate['keyword2']['value'] = `您有${qJson.expressTotal}条运单状态发生变化啦!`
   let url = `${config.url}/detail?wechatid=${openid}&expressno=${qJson.expressCollection}`
   // let lastres = await wechat.sendMessTemp(openid || '', config.total_templateId, JSON.parse(msgJson))
   let lastres = await wechat.sendMessTemp(openid || '', config.total_templateId, totalTemplate, url)

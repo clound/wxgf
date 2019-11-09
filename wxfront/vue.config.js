@@ -15,7 +15,7 @@ module.exports = {
   devServer: {
     proxy: {
       '/api': {
-        target: 'http://192.168.1.11:8082',
+        target: 'http://www.dyry.top/node',
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/'

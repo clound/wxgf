@@ -1,5 +1,5 @@
 import axios from 'axios'
-const API = process.env.NODE_ENV === 'production' ? '/' : '/api'
+const API = process.env.NODE_ENV === 'production' ? '/node' : '/api'
 // 创建axios实例
 const service = axios.create({
   baseURL: API, // api的base_url

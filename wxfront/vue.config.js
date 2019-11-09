@@ -1,4 +1,4 @@
-const BASE_URL = process.env.NODE_ENV === 'production' ? '/' : '/'
+const BASE_URL = process.env.NODE_ENV === 'production' ? '/node' : '/node'
 const path = require('path')
 function resolve(dir) {
   return path.join(__dirname, dir)

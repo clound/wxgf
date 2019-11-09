@@ -9,6 +9,7 @@ const config = require('./config')
 
 const logsUtil = require('./libs/logs.js');
 app.use(async (ctx, next) => {
+    ctx.url = ctx.url.replace(/^\/node/,'')
     const start = new Date();                             // 响应开始时间
     let intervals;                                            // 响应间隔时间
     try {

@@ -3,6 +3,7 @@ const router = new Router()
 const config = require('../config')
 const Wechat = require('../wechat/wechat')
 const template = require('../config/template')
+const utils = require('../libs/utils')
 const wechat = new Wechat(config)
 /**
  * 运单详情
@@ -61,8 +62,10 @@ router.post('/collection', async function(ctx, next) {
   // let qJson = msgJson
   ctx.session.openid = openid
   // console.log(postData, JSON.parse(msgJson))
-  totalTemplate['keyword1']['value'] = qJson.userName
-  totalTemplate['keyword2']['value'] = qJson.expressTotal
+  let tip = `润阳物流提醒您,您的运单状态更新啦！\n`
+  totalTemplate['first']['value'] = `尊敬的客户${qJson.userName},${tip}`
+  totalTemplate['keyword1']['value'] = utils.parseTime(new Date(), '{y}-{m}-{d} {h}:{i}:{s}')
+  totalTemplate['keyword2']['value'] = `您有${qJson.expressTotal}运单状态发生变化啦!`
   let url = `${config.url}/detail?wechatid=${openid}&expressno=${qJson.expressCollection}`
   // let lastres = await wechat.sendMessTemp(openid || '', config.total_templateId, JSON.parse(msgJson))
   let lastres = await wechat.sendMessTemp(openid || '', config.total_templateId, totalTemplate, url)

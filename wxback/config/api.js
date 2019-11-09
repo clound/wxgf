@@ -1,7 +1,7 @@
 const prefix = 'https://api.weixin.qq.com/cgi-bin/'
 const userOpenIdPrefix = 'https://api.weixin.qq.com/sns/oauth2/access_token?'
 
-const javaPrefix = 'http://24cidy.natappfree.cc'
+const javaPrefix = 'http://www.dyry.top'
 const allAPi = {
   access_token: prefix + 'token?grant_type=client_credential',                 //获取access_token
   getWeixinIp: prefix + 'getcallbackip?',                                      //获取微信服务器的ip

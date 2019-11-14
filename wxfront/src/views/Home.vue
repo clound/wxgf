@@ -35,7 +35,7 @@ export default {
   },
   data() {
     return {
-      logoSrc: require('@/common/images/logo.jpg'),
+      logoSrc: require('@/common/images/logo.png'),
       src: '',
       timer: null,
       senddisabled: false,

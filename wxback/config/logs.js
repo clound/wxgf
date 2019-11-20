@@ -1,5 +1,5 @@
 const path = require('path');
-
+const util = require('../libs/utils')
 //日志根目录
 const baseLogPath = path.resolve(__dirname, '../logs')
 
@@ -13,7 +13,7 @@ const errorLogPath = baseLogPath + errorPath + "/" + errorFileName;
 //响应日志目录、文件名、输出完整路径
 const responsePath = "/response";
 const responseFileName = "response";
-const responseLogPath = baseLogPath + responsePath + "/" + responseFileName;
+const responseLogPath = baseLogPath + responsePath + "/" + responseFileName + '-' + util.parseTime(new Date(), '{y}-{m}-{d}') + '.log';
 
 /*操作数据库进行增删改等敏感操作记录日志*/
 //操作日志目录、文件名、输出完整路径
@@ -30,25 +30,18 @@ module.exports = {
             "errorLogger": {
                 "type": "dateFile",
                 "filename": errorLogPath,
-                "pattern": "-yyyy-MM-dd-hh.log",
+                "pattern": "yyyy-MM-dd-hh.log",
                 "alwaysIncludePattern": true,
-                "encoding": "utf-8",
-                "maxLogSize": 20971520, //文件最大存储空间（byte）
-                "backups": 4,
                 "compress": true,
                 "daysToKeep": 10,
                 "path": errorPath
             },
             "resLogger": {
-                "type": "dateFile",
+                "type": "file",
                 "filename": responseLogPath,
-                "pattern": "-yyyy-MM-dd-hh.log",
                 "alwaysIncludePattern": true,
-                "encoding": "utf-8",
                 "maxLogSize": 20971520, //文件最大存储空间（byte）
-                "backups": 4,
                 "compress": true,
-                "daysToKeep": 10,
                 "path": responsePath
             }
         },

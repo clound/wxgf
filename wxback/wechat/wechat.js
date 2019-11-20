@@ -23,7 +23,6 @@ Wechat.prototype.fetchToken = function () {
   let appID = this.appID
   let appSecret = this.appSecret
   let url = `${api.access_token}&appid=${appID}&secret=${appSecret}`
-  
   return new Promise((resolve, reject) => {
     fs.readFile(wechat_file, {flag: 'r+', encoding: 'utf8'}, (err, data) => {
       if(err) {
@@ -64,9 +63,11 @@ Wechat.prototype.getWeixinServerIp = function() {
 }
 // 创建自定义菜单
 Wechat.prototype.createDefineMenu = function (menu) {
-  let url = `${api.menu.createMenu}access_token=${this.access_token}`
-  let options = {method: 'POST', url, body: menu, json: true}
-  return httpRequest(options, 'createDefineMenu');
+  return this.fetchToken().then(() => {
+    let url = `${api.menu.createMenu}access_token=${this.access_token}`
+    let options = {method: 'POST', url, body: menu, json: true}
+    return httpRequest(options, 'createDefineMenu');
+  })
 }
 // 查询自定义菜单
 Wechat.prototype.inquiryDefineMenu = function (menu) {
@@ -76,9 +77,11 @@ Wechat.prototype.inquiryDefineMenu = function (menu) {
 }
 // 删除自定义菜单
 Wechat.prototype.deleteDefineMenu = function () {
-  let url = `${api.menu.deleteMenu}access_token=${this.access_token}`
-  let options = {method: 'GET', url, json: true}
-  return httpRequest(options, 'deleteDefineMenu')
+  return this.fetchToken().then(() => {
+    let url = `${api.menu.deleteMenu}access_token=${this.access_token}`
+    let options = {method: 'GET', url, json: true}
+    return httpRequest(options, 'deleteDefineMenu')
+  })
 }
 // 获取用户基本信息
 Wechat.prototype.fetchUserMess = function (openId, lang) {
@@ -124,10 +127,12 @@ Wechat.prototype.delMessTemp = function (postData) {
 }
 // 消息模版  发送模版信息
 Wechat.prototype.sendMessTemp = function (userID, templateId, postData, detail_url) {
-  let url = `${api.messTemp.sendTempMess}access_token=${this.access_token}`
-  let form =  { "touser": userID, "template_id": templateId, "data": postData, ...(detail_url ? { url: detail_url } : {}) }
-  let options = {method: 'POST', url, body: form, json: true}
-  return httpRequest(options, 'sendMessTemp')
+  return this.fetchToken().then(() => {
+    let url = `${api.messTemp.sendTempMess}access_token=${this.access_token}`
+    let form =  { "touser": userID, "template_id": templateId, "data": postData, ...(detail_url ? { url: detail_url } : {}) }
+    let options = {method: 'POST', url, body: form, json: true}
+    return httpRequest(options, 'sendMessTemp')
+  })
 }
 // 获取OpenId
 Wechat.prototype.getOpenId = function (code) {

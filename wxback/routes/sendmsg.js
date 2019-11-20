@@ -42,7 +42,7 @@ router.post('/detail', async function(ctx, next) {
     ctx.body = {
       code: lastres.errcode,
       msg: '推送消息失败',
-      msgid: lastres.errmsg
+      msgid: lastres.msgid
     }
   }
   next()
@@ -80,7 +80,7 @@ router.post('/collection', async function(ctx, next) {
     ctx.body = {
       code: lastres.errcode,
       msg: '推送消息失败',
-      msgid: lastres.errmsg
+      msgid: lastres.msgid
     }
   }
   next()

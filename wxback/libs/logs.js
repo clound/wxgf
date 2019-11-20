@@ -95,6 +95,7 @@ module.exports = {
     //封装响应日志
     logResponse: function(ctx, resTime) {
         if (ctx) {
+            if (/.*\.(css|js|jpg|png)$/.test(ctx.request.originalUrl)) return
             resLogger.info(formatText.response(ctx, resTime));
         }
     },

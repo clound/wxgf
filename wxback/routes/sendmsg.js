@@ -20,7 +20,7 @@ router.post('/detail', async function(ctx, next) {
   const postData = ctx.request.body
   let { wechatid: openid, msgJson } = postData
   let detailTempalte = template.detailTemplate
-  let qJson = JSON.parse(msgJson)
+  let qJson = JSON.parse(msgJson.replace(/\n/g,"\\n").replace(/\r/g,"\\r"))
   // let qJson = msgJson
   // console.log(msgJson)
   detailTempalte['keyword1']['value'] = qJson.userName
@@ -58,7 +58,7 @@ router.post('/collection', async function(ctx, next) {
   const postData = ctx.request.body
   let { wechatid: openid, msgJson } = postData
   let totalTemplate = template.totalTemplate
-  let qJson = JSON.parse(msgJson)
+  let qJson = JSON.parse(msgJson.replace(/\n/g,"\\n").replace(/\r/g,"\\r"))
   // let qJson = msgJson
   ctx.session.openid = openid
   // console.log(postData, JSON.parse(msgJson))
